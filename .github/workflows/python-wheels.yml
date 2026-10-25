@@ -61,6 +61,7 @@ jobs:
               "$python" -I scripts/test-python-wheel.py --self-test -v || exit 1
               # Normal dependency and Requires-Python resolution; no bypasses.
               uv pip install --python "$python" dist/python-wheels/*.whl || exit 1
+              "$python" -I -c 'from importlib.metadata import version; assert version("mcp-grafana") == "2.1.0"' || exit 1
               "$python" -I scripts/test-python-wheel.py -v
             ) || status=1
             echo "::endgroup::"
